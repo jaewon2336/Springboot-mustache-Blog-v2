@@ -5,8 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class TestViewController {
-    // 모든 페이지 잘 작동하는지 확인 후 푸시
-    // 2. 컨트롤러 페이지 작동 테스트
+    // 파일명 가장 끝에 Test가 붙으면 데브툴이 작동하지 않음 -> 서버리로드 안함
+    // ex)ViewControllerTest
+
     @GetMapping("/post/detail")
     public String detail() {
         return "post/detail";
