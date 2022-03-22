@@ -25,48 +25,6 @@
 </div>
 <!-- 컨테이너 끝 -->
 
-<script>
-  // 1. 이벤트 리스너
-  $("#btn-join").click(() => {
-    join();
-  });
-
-  // 2. 기능
-  // async function join() {
-  // }
-  let join = async () => {
-
-    // (1) username, password, email, address 찾아서 자바스크립트 오브젝트로 만들기
-    let userDto = {
-      username: $("#username").val(),
-      password: $("#password").val(),
-      email: $("#email").val(),
-      address: $("#address").val()
-    }
-
-    // (2) 자바스크립트 오브젝트 -> JSON 변환 (통신의 표준이 JSON!!)
-    // let userJson = JSON.stringify(userDto);
-
-    // (3) fetch 요청
-    let response = await fetch("/api/join", {
-      method: 'POST',
-      body: JSON.stringify(userDto),
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      }
-    });
-
-    let responseObject = await response.json();
-
-    // (4) 회원가입이 잘되면 알림창을 띄우고 로그인 페이지로 이동
-    if (responseObject.code == 1) {
-      alert("회원가입에 성공하였습니다.");
-      location.href = "/loginForm";
-    } else {
-      alert("회원가입에 실패하였습니다.");
-    }
-  }
-
-</script>
+<script src="/js/user.js"></script>
 
 {{> /layout/footer}}

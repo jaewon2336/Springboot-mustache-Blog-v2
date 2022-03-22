@@ -25,4 +25,9 @@ public class UserController {
     public String loginForm() {
         return "user/loginForm";
     }
+
+    @GetMapping("/")
+    public String list() {
+        return "post/list";
+    }
 }
