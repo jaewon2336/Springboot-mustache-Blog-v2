@@ -2,7 +2,6 @@ package site.metacoding.blogv2.domain.post;
 
 import java.time.LocalDateTime;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
