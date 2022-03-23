@@ -1,6 +1,10 @@
 package site.metacoding.blogv2.web;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.RequiredArgsConstructor;
@@ -23,11 +27,7 @@ public class UserController {
     // 로그인폼 (인증 X)
     @GetMapping("/loginForm")
     public String loginForm() {
-        return "user/loginForm";
-    }
 
-    @GetMapping("/")
-    public String list() {
-        return "post/list";
+        return "user/loginForm";
     }
 }
