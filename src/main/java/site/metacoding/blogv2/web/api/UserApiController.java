@@ -3,8 +3,11 @@ package site.metacoding.blogv2.web.api;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +17,7 @@ import site.metacoding.blogv2.service.UserService;
 import site.metacoding.blogv2.web.api.dto.ResponseDto;
 import site.metacoding.blogv2.web.api.dto.user.JoinDto;
 import site.metacoding.blogv2.web.api.dto.user.LoginDto;
+import site.metacoding.blogv2.web.api.dto.user.UpdateDto;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,6 +25,34 @@ public class UserApiController {
 
     private final UserService userService;
     private final HttpSession session;
+
+    // 이것도 있어야 나중에 앱에서 상세보기 할 수 있음
+    // 우리 웹브라우저에서는 현재 사용안함. 추후 앱에서 요청시에 사용할 예정
+    @GetMapping("/s/api/user/{id}")
+    public ResponseDto<?> userInfo(@PathVariable Integer id) {
+        User userEntity = userService.회원정보(id);
+        return new ResponseDto<>(1, "성공", userEntity);
+    }
+
+    // 유저정보 수정 password, email, address
+    @PutMapping("/s/api/user/{id}")
+    public ResponseDto<?> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto, Model model) {
+
+        // System.out.println("id : " + id + ", updateDto : " + updateDto);
+
+        User userEntity = userService.회원수정(id, updateDto);
+
+        session.setAttribute("principal", userEntity);
+
+        // System.out.println("session : " + session.getAttribute("principal"));
+
+        model.addAttribute("user", userEntity);
+
+        // System.out.println("userEntity : " + userEntity);
+        // System.out.println(model.getAttribute("user"));
+
+        return new ResponseDto<>(1, "업데이트 성공", null);
+    }
 
     @PostMapping("/join")
     public ResponseDto<?> join(@RequestBody JoinDto joinDto) {

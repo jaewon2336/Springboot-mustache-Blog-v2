@@ -8,6 +8,10 @@ $("#btn-login").click(() => {
     login();
 });
 
+$("#btn-update").click(() => {
+    update();
+});
+
 // 2. 기능
 
 // username 기억하기 (cookie) httpOnly 속성이 걸려있으면 안되는 것 주의
@@ -20,7 +24,7 @@ function usernameRemember() {
 // 바로 실행
 usernameRemember();
 
-// 회원가입 요청 메서드
+// 회원가입 함수
 let join = async () => {
 
     // (1) username, password, email, address 찾아서 자바스크립트 오브젝트로 만들기
@@ -54,7 +58,7 @@ let join = async () => {
     }
 }
 
-// 로그인 요청 메서드
+// 로그인 함수
 let login = async () => {
 
     // checkBox의 체크여부를 제이쿼리에서 확인하는 법
@@ -85,5 +89,35 @@ let login = async () => {
         location.href = "/";
     } else {
         alert("로그인에 실패하였습니다.");
+    }
+}
+
+// 회원정보 수정 함수
+async function update() {
+    let updateDto = {
+        password: $("#password").val(),
+        email: $("#email").val(),
+        address: $("#address").val()
+    }
+
+    let id = $("#id").val();
+
+    let response = await fetch(`/s/api/user/${id}`, {
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        method: 'PUT',
+        body: JSON.stringify(updateDto)
+    });
+
+    let responseParse = await response.json();
+
+    // console.log(responseParse);
+
+    if (responseParse.code == 1) {
+        alert("수정이 완료되었습니다.");
+        location.href = `/s/user/${id}`;
+    } else {
+        alert("수정에 실패했습니다.");
     }
 }

@@ -10,6 +10,7 @@ import site.metacoding.blogv2.domain.user.User;
 import site.metacoding.blogv2.domain.user.UserRepository;
 import site.metacoding.blogv2.web.api.dto.user.JoinDto;
 import site.metacoding.blogv2.web.api.dto.user.LoginDto;
+import site.metacoding.blogv2.web.api.dto.user.UpdateDto;
 
 @RequiredArgsConstructor
 // 트랜잭션을 관리하는 오브젝트 : 서비스
@@ -39,4 +40,24 @@ public class UserService {
             throw new RuntimeException("아이디를 찾을 수 없습니다.");
         }
     }
+
+    @Transactional
+    public User 회원수정(Integer id, UpdateDto updateDto) {
+        // UPDATE user SET password = ?, email = ?, address = ? WHERE id = ?
+        Optional<User> userOp = userRepository.findById(id); // 영속화 (DB의 row를 영속성 컨텍스트에 옮김)
+
+        if (userOp.isPresent()) {
+            // 영속화된 오브젝트 수정
+            User userEntity = userOp.get();
+
+            userEntity.setPassword(updateDto.getPassword());
+            userEntity.setEmail(updateDto.getEmail());
+            userEntity.setAddress(updateDto.getAddress());
+
+            return userEntity;
+        } else {
+            throw new RuntimeException("회원수정에 실패하였습니다.");
+        }
+
+    } // 트랜잭션이 걸려있으면 @Service가 종료될 때 변경 감지 후 DB에 UPDATE -> 더티체킹
 }

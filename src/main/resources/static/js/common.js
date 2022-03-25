@@ -5,7 +5,7 @@ $("#btn-logout").click(() => {
 
 // 2. 기능
 
-// 로그아웃 요청 메서드
+// 로그아웃 함수
 async function logout() {
     let response = await fetch("/logout");
     let responseParse = await response.json(); // json을 javascript 오브젝트로 파싱
