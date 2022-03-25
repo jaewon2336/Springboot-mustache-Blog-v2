@@ -8,7 +8,6 @@ $("#btn-login").click(() => {
     login();
 });
 
-
 // 2. 기능
 
 // username 기억하기 (cookie) httpOnly 속성이 걸려있으면 안되는 것 주의

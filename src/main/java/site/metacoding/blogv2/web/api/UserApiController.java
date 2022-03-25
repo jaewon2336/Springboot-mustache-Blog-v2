@@ -3,6 +3,7 @@ package site.metacoding.blogv2.web.api;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,20 +23,20 @@ public class UserApiController {
     private final HttpSession session;
 
     @PostMapping("/join")
-    public ResponseDto<String> join(@RequestBody JoinDto joinDto) {
+    public ResponseDto<?> join(@RequestBody JoinDto joinDto) {
 
         userService.회원가입(joinDto);
 
-        return new ResponseDto<String>(1, "회원가입 성공", null);
+        return new ResponseDto<>(1, "회원가입 성공", null);
     }
 
     @PostMapping("/login")
-    public ResponseDto<String> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
+    public ResponseDto<?> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
 
         User userEntity = userService.로그인(loginDto);
 
         if (userEntity == null) {
-            return new ResponseDto<String>(-1, "로그인 실패", null);
+            return new ResponseDto<>(-1, "로그인 실패", null);
         }
 
         session.setAttribute("principal", userEntity); // 세션에 저장
@@ -47,6 +48,14 @@ public class UserApiController {
             response.addHeader("Set-Cookie", "remember=" + loginDto.getUsername() + ";path=/");
         }
 
-        return new ResponseDto<String>(1, "로그인 성공", null);
+        return new ResponseDto<>(1, "로그인 성공", null);
+    }
+
+    @GetMapping("/logout")
+    public ResponseDto<?> logout() {
+
+        session.invalidate(); // 해당 JSESSIONID 영역 전체 날리기 -> 로그아웃
+
+        return new ResponseDto<>(1, "로그아웃 성공", null);
     }
 }
