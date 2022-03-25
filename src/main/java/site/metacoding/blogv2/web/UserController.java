@@ -1,11 +1,12 @@
 package site.metacoding.blogv2.web;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import lombok.RequiredArgsConstructor;
+import site.metacoding.blogv2.domain.user.User;
 import site.metacoding.blogv2.service.UserService;
 
 @RequiredArgsConstructor
@@ -13,7 +14,17 @@ import site.metacoding.blogv2.service.UserService;
 public class UserController {
 
     private final UserService userService;
-    private final HttpSession session;
+
+    // 앱은 이 메서드 요청 안함, 웹만 함
+    // SSR할지 CSR할지 선택
+    @GetMapping("/s/user/{id}")
+    public String userInfo(Model model, @PathVariable Integer id) {
+        // DB에서 셀렉트해서 모델에 담으면 끝
+        User userEntity = userService.회원정보(id);
+        model.addAttribute("user", userEntity);
+
+        return "user/updateForm";
+    }
 
     // @GetMapping("/logout")
     // public String logout() {
