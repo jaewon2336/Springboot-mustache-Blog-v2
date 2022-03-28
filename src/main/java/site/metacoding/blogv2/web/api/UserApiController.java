@@ -41,15 +41,7 @@ public class UserApiController {
         // System.out.println("id : " + id + ", updateDto : " + updateDto);
 
         User userEntity = userService.회원수정(id, updateDto);
-
-        session.setAttribute("principal", userEntity);
-
-        // System.out.println("session : " + session.getAttribute("principal"));
-
-        model.addAttribute("user", userEntity);
-
-        // System.out.println("userEntity : " + userEntity);
-        // System.out.println(model.getAttribute("user"));
+        session.setAttribute("principal", userEntity); // 세션 변경하기
 
         return new ResponseDto<>(1, "업데이트 성공", null);
     }
