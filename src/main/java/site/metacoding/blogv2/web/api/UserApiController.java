@@ -40,6 +40,12 @@ public class UserApiController {
 
         // System.out.println("id : " + id + ", updateDto : " + updateDto);
 
+        // 세션의 아이디와 {id}를 비교
+        User principal = (User) session.getAttribute("principal");
+        if (principal.getId() != id) {
+            throw new RuntimeException("권한이 없습니다.");
+        }
+
         User userEntity = userService.회원수정(id, updateDto);
         session.setAttribute("principal", userEntity); // 세션 변경하기
 
