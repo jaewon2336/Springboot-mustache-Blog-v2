@@ -40,6 +40,9 @@ public class User {
     @Column(nullable = false, length = 300)
     private String address; // API 주소 라이브러리 사용
 
+    @Column(nullable = true, length = 300)
+    private String profileImg; // 이미지 파일을 전송 받아서 서버에 두고, 그 경로를 DB에 저장
+
     // 모든 Entity 공통
     @CreatedDate
     private LocalDateTime createDate;
