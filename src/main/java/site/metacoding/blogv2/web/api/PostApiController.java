@@ -23,6 +23,14 @@ public class PostApiController {
     private final PostService postService;
     private final HttpSession session;
 
+    @GetMapping("/api/post/{id}")
+    public ResponseDto<?> detail(@PathVariable Integer id) {
+
+        Post postEntity = postService.글상세보기(id);
+
+        return new ResponseDto<>(1, "성공", postEntity);
+    }
+
     @GetMapping("/api/post")
     public ResponseDto<?> list(Integer page) {
         Page<Post> posts = postService.글목록(page);

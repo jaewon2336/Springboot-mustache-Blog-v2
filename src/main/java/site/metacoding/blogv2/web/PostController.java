@@ -14,8 +14,12 @@ public class PostController {
 
     private final PostService postService;
 
+    // 글 상세보기
     @GetMapping("/post/{id}")
-    public String detail(@PathVariable Integer id) {
+    public String detail(@PathVariable Long id, Model model) {
+
+        model.addAttribute("postId", id);
+
         return "post/detail";
     }
 

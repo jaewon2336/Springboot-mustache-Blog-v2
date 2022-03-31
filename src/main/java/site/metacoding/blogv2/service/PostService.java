@@ -23,6 +23,16 @@ public class PostService {
 
     private final PostRepository postRepository;
 
+    public Post 글상세보기(Integer id) {
+        Optional<Post> postOp = postRepository.findById(id);
+
+        if (postOp.isPresent()) {
+            return postOp.get();
+        } else {
+            throw new RuntimeException("해당 게시글을 찾을 수 없습니다.");
+        }
+    }
+
     @Transactional
     public void 글쓰기(Post post) {
         postRepository.save(post);
