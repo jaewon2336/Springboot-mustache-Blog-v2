@@ -16,12 +16,12 @@ public class UserController {
     private final UserService userService;
 
     // 앱은 이 메서드 요청 안함, 웹만 함
-    // SSR할지 CSR할지 선택
+    // SSR할지 CSR할지 선택 -> 이거는 SSR!
     @GetMapping("/s/user/{id}")
-    public String userInfo(Model model, @PathVariable Integer id) {
+    public String userInfo(/* Model model, */@PathVariable Integer id) {
         // DB에서 셀렉트해서 모델에 담으면 끝
-        User userEntity = userService.회원정보(id);
-        model.addAttribute("user", userEntity);
+        // User userEntity = userService.회원정보(id);
+        // model.addAttribute("user", userEntity);
 
         return "user/updateForm";
     }
