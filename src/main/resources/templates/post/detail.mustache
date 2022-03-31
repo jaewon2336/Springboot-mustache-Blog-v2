@@ -4,18 +4,19 @@
 <div class="container mt-3">
 
   <!-- 글 상세정보보기 시작 -->
-
-  <div class="mb-3 mt-3">
-    작성자 : 유저네임
+  <input type="hidden" id="{{id}}">
+  <div id="username" class="mb-3 mt-3">
+    작성자 : 유저 네임
   </div>
   <div class="mb-3 mt-3">
-    <h1> 제목입니다 </h1> 
+    <h1 id="title">제목입니다</h1>
   </div>
   <hr />
-  <div class="mb-3">
+  <div id="content" class="mb-3">
     내용입니다
   </div>
-  
+
+
   <a href="/s/post/1/updateForm" class="btn btn-secondary">수정</a>
   <button class="btn btn-danger">삭제</button>
 
@@ -23,5 +24,6 @@
 
 </div>
 <!-- 컨테이너 끝 -->
+
 
 {{> /layout/footer}}
