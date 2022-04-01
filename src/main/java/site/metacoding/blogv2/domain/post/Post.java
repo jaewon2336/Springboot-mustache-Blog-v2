@@ -55,6 +55,7 @@ public class Post { // N(드라이빙 테이블, FK의 주인)
     // @ColumnDefault("0")
     private Integer pageCount; // 조회수
 
+    @JsonIgnoreProperties({ "password" }) // post 셀렉트할때만 제외, user 셀렉트할때는 나옴
     @JoinColumn(name = "userId")
     // Post가 Many니까 Many가 앞에 붙고 user가 One이니까 적음
     @ManyToOne(fetch = FetchType.EAGER)
